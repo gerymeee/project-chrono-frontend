@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2nd Anniversary</title>
+  <link rel="stylesheet" href="letterStylepg3.css" />
+  <link rel="icon" href="favicons/fav1.png" type="image/png" />
+</head>
+<body>
+  
+  <div class="bokeh-container">
+    <div class="bokeh b1"></div>
+    <div class="bokeh b2"></div>
+    <div class="bokeh b3"></div>
+  </div>
+
+  <a href="index.html" class="back-button" aria-label="Go Back">&#8592;</a>
+  <button id="playPauseBtn" class="music-btn">🎵 Play Music</button>
+  
+  <audio id="myAudio" loop>
+    <source src="music/cant-help-falling-in-love.mp3" type="audio/mpeg" />
+  </audio>
+
+  <div class="story-container">
+    
+    <section class="hero-section">
+      <h1 class="hero-title reveal">Chapter Two</h1>
+      <p class="hero-subtitle reveal" style="transition-delay: 0.3s;">The Story of Us</p>
+    </section>
+
+    <section class="chapter">
+      <div class="reveal" style="flex: 1;">
+        <div class="glass-card dynamic-float">
+          <span class="cursive-highlight">The Beginning</span>
+          <div id="part-1">Loading story...</div>
+        </div>
+      </div>
+      <div class="reveal" style="flex: 1; transition-delay: 0.2s;">
+        <div class="image-wrapper dynamic-float-reverse">
+          <div class="image-container">
+            <img src="Images/pic28.jpg" alt="Memory 1">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter reverse">
+      <div class="reveal" style="flex: 1;">
+        <div class="glass-card dynamic-float-reverse">
+          <span class="cursive-highlight">The Journey</span>
+          <div id="part-2">Loading story...</div>
+        </div>
+      </div>
+      <div class="reveal" style="flex: 1; transition-delay: 0.2s;">
+        <div class="image-wrapper dynamic-float">
+          <div class="image-container">
+            <img src="Images/pic32.jfif" alt="Memory 2">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter">
+      <div class="reveal" style="flex: 1;">
+        <div class="glass-card dynamic-float">
+          <span class="cursive-highlight">The Present</span>
+          <div id="part-3">Loading story...</div>
+        </div>
+      </div>
+      <div class="reveal" style="flex: 1; transition-delay: 0.2s;">
+        <div class="image-wrapper dynamic-float-reverse">
+          <div class="image-container">
+            <img src="Images/pic36.jpg" alt="Memory 3">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter center" style="margin-bottom: 50px;">
+      <div class="reveal" style="width: 100%;">
+        <div class="glass-card dynamic-float" style="padding: 50px;">
+          <span class="cursive-highlight" style="font-size: 4rem;">Captured Moments</span>
+          <p style="color: #fecfef; margin-bottom: 20px;">A thousand words in every frame.</p>
+          
+          <div class="glass-gallery">
+            <img src="Images/pic30.jpg" alt="Gallery 1">
+            <img src="Images/pic31.jpg" alt="Gallery 2">
+            <img src="Images/pic27.jfif" alt="Gallery 3">
+            <img src="Images/pic37.jpg" alt="Gallery 4">
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    <p>Lovingly crafted by <a href="#" id="name-link">Geryme</a></p>
+  </footer>
+
+  <script>
+    // 0. MUSIC BUTTON LOGIC
+    const audio = document.getElementById('myAudio');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+
+    playPauseBtn.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+        playPauseBtn.innerHTML = '⏸ Pause Music';
+      } else {
+        audio.pause();
+        playPauseBtn.innerHTML = '🎵 Play Music';
+      }
+    });
+
+    // 1. ADVANCED SCROLL REVEAL (Intersection Observer)
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach((el) => {
+      observer.observe(el);
+    });
+
+    setTimeout(() => {
+      document.querySelectorAll('.hero-section .reveal').forEach(el => el.classList.add('active'));
+    }, 100);
+  </script>
+
+  <script>
+    const userToken = localStorage.getItem('memoryCapsuleToken');
+    const BACKEND_URL = 'https://project-chrono-backend.vercel.app/api/letter3';
+
+    fetch(BACKEND_URL, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${userToken}`,
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => {
+        if(!response.ok) {
+          throw new Error('Unauthorized Access!');
+        }
+        return response.json();
+      })
+      .then(data => {
+        if(data.success) {
+          document.getElementById('part-1').innerHTML = data['part-1'];
+          document.getElementById('part-2').innerHTML = data['part-2'];
+          document.getElementById('part-3').innerHTML = data['part-3'];
+        }
+      })
+      .catch(error => {
+        document.getElementById('part-1').innerHTML = `
+        <div style="text-align: center; margin-top: 20px;">
+          <span>Sealed Memory</span>
+          <br /><br />
+          You are currently viewing as a guest.<br />
+          You are not authorized to view the contents,<br />
+          but please feel free to enjoy the photos beside it!
+          <br /><br /><br />
+          <span class="ullu">
+            Enjoy!
+          </span>
+        </div>
+        `;
+        document.getElementById('part-2').innerHTML = `
+        <div style="text-align: center; margin-top: 20px;">
+          <span>Sealed Memory</span>
+          <br /><br />
+          You are currently viewing as a guest.<br />
+          You are not authorized to view the contents,<br />
+          but please feel free to enjoy the photos beside it!
+          <br /><br /><br />
+          <span class="ullu">
+            Enjoy!
+          </span>
+        </div>
+        `;
+        document.getElementById('part-3').innerHTML = `
+        <div style="text-align: center; margin-top: 20px;">
+          <span>Sealed Memory</span>
+          <br /><br />
+          You are currently viewing as a guest.<br />
+          You are not authorized to view the contents,<br />
+          but please feel free to enjoy the photos beside it!
+          <br /><br /><br />
+          <span class="ullu">
+            Enjoy!
+          </span>
+        </div>
+        `;
+      });
+  </script>
+</body>
+</html>

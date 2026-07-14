@@ -1,0 +1,332 @@
+@import url("https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Varela+Round&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* --- PRELOADER --- */
+.preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #3e2723; z-index: 9999; display: flex; align-items: center; justify-content: center; transition: opacity 0.5s ease; }
+.preloader::before { content: ""; width: 50px; height: 50px; border: 5px solid #ffd1dc; border-top: 5px solid #b85c6e; border-radius: 50%; animation: spin 1s linear infinite; }
+body.loaded .preloader { opacity: 0; pointer-events: none; }
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+/* --- MAIN LAYOUT --- */
+body {
+  font-family: "Varela Round", "Quicksand", sans-serif;
+  background: url("bg/background3.png"); 
+  background-size: cover;
+  background-position: center;
+  background-color: #ffe4e1;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.center-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* --- THE SEALED CARD (Envelope Look) --- */
+.sealed-card-container {
+  position: relative;
+  width: 350px; 
+  height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50; 
+  transition: all 0.8s ease-in-out;
+  
+  background: #a64d5e; 
+  border-radius: 10px; 
+  box-shadow: 0 25px 50px rgba(0,0,0,0.35); 
+  overflow: hidden; 
+}
+
+/* BOTTOM POCKET FOLD */
+.sealed-card-container::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 0; height: 0;
+    border-left: 175px solid transparent; 
+    border-right: 175px solid transparent;
+    border-bottom: 150px solid #b85c6e;   
+    z-index: 1;
+    transition: opacity 0.5s ease 0.3s;
+}
+
+/* TOP V-FLAP */
+.sealed-card-container::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 0; height: 0;
+    border-left: 175px solid transparent; 
+    border-right: 175px solid transparent;
+    border-top: 130px solid #c47886;      
+    z-index: 2; 
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
+    transition: opacity 0.5s ease 0.3s;
+}
+
+/* --- WAX SEAL --- */
+.wax-seal {
+  position: absolute;
+  top: 85px; 
+  width: 85px; height: 85px;
+  background: #8a3a4b; 
+  border-radius: 50%;
+  color: #ffdee9;
+  display: flex; justify-content: center; align-items: center;
+  text-align: center;
+  border: 4px solid #a64d5e; 
+  box-shadow: 0 6px 12px rgba(0,0,0,0.4), inset 0 3px 8px rgba(255,255,255,0.15);
+  cursor: pointer;
+  z-index: 60;
+  font-family: 'Great Vibes', cursive;
+  font-size: 22px;
+  line-height: 0.9;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease;
+}
+.wax-seal:hover { transform: scale(1.1); }
+
+
+/* --- OPEN STATE --- */
+.sealed-card-container.open { 
+    width: 0; 
+    height: 0; 
+    box-shadow: none; 
+    overflow: visible; 
+}
+.sealed-card-container.open::before,
+.sealed-card-container.open::after,
+.sealed-card-container.open .wax-seal { 
+    opacity: 0; 
+    pointer-events: none; 
+}
+.sealed-card-container.open .letter-content {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* --- THE LETTER (PREMIUM STATIONERY) --- */
+.letter-content {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(0.2); 
+  opacity: 0;
+  width: 900px; 
+  height: 550px;
+  padding: 0; 
+  z-index: 300; 
+  overflow: hidden; 
+  pointer-events: none; 
+  transition: all 1s cubic-bezier(0.34, 1.56, 0.64, 1); 
+
+  /* --- PAPER TEXTURE & FRAME --- */
+  background-color: #fff9fc; 
+  background-image: repeating-linear-gradient(45deg, rgba(184, 92, 110, 0.1) 0px, rgba(184, 92, 110, 0.1) 1px, transparent 1px, transparent 15px);
+  border: 2px solid #b85c6e; 
+  border-radius: 15px; 
+  box-shadow: 
+      inset 0 0 0 10px #fff, 
+      inset 0 0 0 12px #e6c1c1,
+      0 40px 80px rgba(0,0,0,0.45);
+}
+
+/* --- CLOSE BUTTON --- */
+.close-btn {
+  position: absolute;
+  top: 25px; right: 30px; 
+  width: 40px; height: 40px;
+  background: #b85c6e; color: #fff;
+  border-radius: 50%;
+  display: flex; justify-content: center; align-items: center;
+  font-size: 28px; font-weight: bold;
+  cursor: pointer;
+  z-index: 400; 
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transition: transform 0.2s ease, background 0.2s ease;
+  line-height: 1; 
+}
+.close-btn:hover { background: #c77d8b; transform: scale(1.1); }
+
+/* --- BACK BUTTON (With Fixed Centering) --- */
+.back-button { 
+    position: absolute; top: 30px; left: 30px; text-decoration: none; 
+    width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;
+    background: #b85c6e; color: #fff; border-radius: 50%; font-size: 22px; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 100; transition: all 0.3s ease;
+    
+    /* FIX: Optical nudge to center the arrow character */
+    padding-bottom: 3px; 
+}
+.back-button:hover { background: #c77d8b; transform: scale(1.1); }
+
+/* Inner Scroll Wrapper */
+.text-scroll-wrapper {
+  width: 100%; height: 100%;
+  overflow-y: auto;
+  padding: 60px 70px;
+}
+.text-scroll-wrapper::-webkit-scrollbar { width: 8px; }
+.text-scroll-wrapper::-webkit-scrollbar-track { background: transparent; margin: 30px 0; }
+.text-scroll-wrapper::-webkit-scrollbar-thumb { 
+    background-color: #dbaabb; border-radius: 10px; 
+    border: 2px solid rgba(255,255,255,0.8);
+}
+
+/* Typography */
+.text-scroll-wrapper p { 
+    font-size: 20px; color: #5e2633; line-height: 1.6; 
+    text-align: center; font-family: cursive; font-weight: 540;
+}
+.text-scroll-wrapper span { 
+    font-family: 'Great Vibes', cursive; font-size: 42px; 
+    color: #b85c6e; display: block; margin-bottom: 25px; 
+    text-shadow: 0 2px 2px rgba(255,255,255,0.8); 
+}
+.text-scroll-wrapper .ullu { margin-top: 35px; font-size: 28px; }
+
+/* --- ORBITING LAYERS --- */
+.orbit-gallery {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 1; 
+}
+
+.photo {
+  position: absolute;
+  width: 260px; height: 260px;
+  object-fit: cover;
+  border: 10px solid #fff; 
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  border-radius: 8px;
+  pointer-events: auto;
+  offset-rotate: 0deg; 
+  transform: rotate(var(--r));
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.photo:hover { 
+  transform: scale(1.3) rotate(0deg) !important; 
+  animation-play-state: paused !important; 
+  z-index: 200; 
+  cursor: pointer;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+}
+
+@keyframes moveAlongPath {
+  0% { offset-distance: 0%; }
+  100% { offset-distance: 100%; }
+}
+
+/* --- RINGS --- */
+.ring-1 .photo {
+  offset-path: ellipse(48vw 38vh at 50% 50%);
+  animation: moveAlongPath 95s linear infinite;
+}
+.ring-2 .photo {
+  offset-path: ellipse(42vw 34vh at 50% 50%);
+  animation: moveAlongPath 80s linear infinite;
+}
+.ring-3 .photo {
+  offset-path: ellipse(36vw 30vh at 50% 50%);
+  animation: moveAlongPath 65s linear infinite;
+}
+
+/* --- CONTROLS --- */
+.controls { 
+    position: fixed; bottom: 60px; left: 50%; 
+    transform: translateX(-50%); z-index: 100; 
+}
+#playPauseBtn { 
+    font-family: cursive; 
+    background: #b85c6e; color: white; border: 2px solid #9c4a5a; 
+    padding: 10px 24px; border-radius: 30px; cursor: pointer; 
+    font-size: 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
+#playPauseBtn:hover { background: #c77d8b; transform: scale(1.05); }
+
+/* --- FOOTER --- */
+footer { 
+    position: fixed; bottom: 15px; left: 0; width: 100%; 
+    text-align: center; color: #5e2633; font-size: 16px; z-index: 100;
+}
+footer p { 
+    font-family: cursive; font-weight: bold; 
+    text-shadow: 0 1px 2px rgba(255,255,255,0.6); margin: 0; 
+}
+a { color: #b85c6e; text-decoration: none; }
+
+/* --- FALLING PETALS --- */
+.petals-container {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  overflow: hidden;
+  z-index: 0; 
+  pointer-events: none; 
+}
+
+.petal {
+  position: absolute;
+  top: -20px;
+  background: linear-gradient(to bottom right, #fff0e6, #dcaaaa);
+  border-radius: 150% 0 150% 0;
+  animation: fall linear infinite;
+  opacity: 0.7; 
+  box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+}
+
+@keyframes fall {
+  0% { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 0; }
+  20% { opacity: 0.8; }
+  100% { transform: translateY(110vh) translateX(50px) rotate(360deg); opacity: 0; }
+}
+
+/* --- RESPONSIVE FIXES --- */
+
+/* For Tablets and iPads (screens smaller than 1024px) */
+@media screen and (max-width: 1024px) {
+  .photo {
+    /* Shrink photos from 260px to 160px */
+    width: 160px;
+    height: 160px;
+    border-width: 6px; /* Make border slightly thinner */
+  }
+  
+  /* Optional: Shrink the envelope slightly if it still feels tight */
+  .sealed-card-container {
+    transform: scale(0.85); 
+  }
+}
+
+/* For Mobile Phones (screens smaller than 600px) */
+@media screen and (max-width: 600px) {
+  .photo {
+    /* Shrink photos even more for phones */
+    width: 110px;
+    height: 110px;
+    border-width: 4px;
+  }
+  
+  .sealed-card-container {
+    transform: scale(0.7);
+  }
+}

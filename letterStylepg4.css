@@ -1,0 +1,454 @@
+@import url("https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@300;400;600&display=swap");
+
+/* --- BASE STYLES --- */
+* { 
+  margin: 0; 
+  padding: 0; 
+  box-sizing: border-box; 
+}
+
+body {
+  font-family: 'Quicksand', sans-serif;
+  background: #0a0a0f; 
+  color: #fff;
+  overflow-y: hidden; 
+  overflow-x: hidden;
+  perspective: 1000px;
+}
+
+/* --- UI CONTROLS --- */
+.back-button {
+  position: fixed; 
+  top: 20px; 
+  left: 20px; 
+  width: 45px; 
+  height: 45px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05); 
+  backdrop-filter: blur(10px); 
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(253, 211, 161, 0.3); 
+  color: #fbd3a1; 
+  border-radius: 50%; 
+  text-decoration: none; 
+  font-size: 22px; 
+  z-index: 999;
+  transition: all 0.3s ease; 
+  padding-bottom: 3px;
+}
+
+.back-button:hover { 
+  background: rgba(253, 211, 161, 0.2); 
+  transform: scale(1.1); 
+  color: #fff; 
+}
+
+.music-btn {
+  position: fixed; 
+  top: 20px; 
+  right: 20px; 
+  background: rgba(255, 255, 255, 0.05); 
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(253, 211, 161, 0.3); 
+  color: #fbd3a1; 
+  padding: 10px 20px; 
+  border-radius: 30px; 
+  font-family: 'Quicksand', sans-serif; 
+  font-weight: 600; 
+  cursor: pointer; 
+  z-index: 999; 
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.music-btn:hover { 
+  background: rgba(253, 211, 161, 0.2); 
+  transform: translateY(-2px); 
+  color: #fff; 
+}
+
+/* --- FOOTER --- */
+footer {
+  position: fixed; 
+  bottom: 15px; 
+  left: 0; 
+  width: 100%; 
+  text-align: center;
+  color: rgba(255, 255, 255, 0.5); 
+  font-size: 14px; 
+  z-index: 999; 
+  pointer-events: none;
+}
+
+footer p { 
+  font-family: 'Quicksand', sans-serif; 
+  letter-spacing: 1px; 
+  margin: 0; 
+}
+
+footer a { 
+  color: #fbd3a1; 
+  text-decoration: none; 
+  font-family: 'Great Vibes', cursive; 
+  font-size: 1.5rem; 
+  pointer-events: auto; 
+  transition: color 0.3s; 
+}
+
+footer a:hover { 
+  color: #fff; 
+}
+
+/* --- HORIZONTAL TRACK --- */
+.horizontal-gallery {
+  display: flex; 
+  width: 100vw; 
+  height: 100vh; 
+  overflow-x: auto; 
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory; 
+  scroll-behavior: smooth;
+}
+
+.horizontal-gallery::-webkit-scrollbar { 
+  display: none; 
+}
+
+.slide {
+  flex: 0 0 100vw; 
+  height: 100vh; 
+  position: relative; 
+  scroll-snap-align: center;
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  overflow: hidden;
+}
+
+/* --- IN-SLIDE NAVIGATION ARROWS --- */
+.slide-nav {
+  position: absolute;
+  top: 50%;
+  font-size: 2.5rem;
+  color: rgba(253, 211, 161, 0.4);
+  cursor: pointer;
+  z-index: 10;
+  padding: 20px;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+  user-select: none;
+}
+
+.slide-nav:hover {
+  color: rgba(253, 211, 161, 1);
+  text-shadow: 0 0 15px rgba(253, 211, 161, 0.8);
+}
+
+.slide-nav.left {
+  left: 20px;
+  animation: floatLeft 2.5s ease-in-out infinite alternate;
+}
+
+.slide-nav.right {
+  right: 20px;
+  animation: floatRight 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes floatLeft {
+  0% { transform: translate(0, -50%); }
+  100% { transform: translate(-8px, -50%); }
+}
+
+@keyframes floatRight {
+  0% { transform: translate(0, -50%); }
+  100% { transform: translate(8px, -50%); }
+}
+
+/* --- FLASHLIGHT HERO SLIDE --- */
+.spotlight-wrapper { 
+  background: #0a0a0f; 
+  width: 100%; 
+  height: 100%; 
+  position: absolute; 
+}
+
+.spotlight-content {
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%;
+  background: linear-gradient(rgba(10,10,15,0.6), rgba(10,10,15,0.6)), url('Images/image_ed1502.jpg') center/cover;
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center;
+  -webkit-mask-image: radial-gradient(circle 250px at var(--mouseX, 50%) var(--mouseY, 50%), black 40%, rgba(0,0,0,0) 80%);
+  mask-image: radial-gradient(circle 250px at var(--mouseX, 50%) var(--mouseY, 50%), black 40%, rgba(0,0,0,0) 80%);
+  transition: -webkit-mask-image 0.1s ease, mask-image 0.1s ease;
+}
+
+.golden-title {
+  font-family: 'Great Vibes', cursive; 
+  font-size: 8rem;
+  background: linear-gradient(to right, #fbd3a1, #ffdae0);
+  -webkit-background-clip: text; 
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 20px rgba(253, 211, 161, 0.4)); 
+  text-align: center; 
+  line-height: 1.4; 
+  padding: 20px; 
+}
+
+/* Hero Slide: Glimmer Effect */
+.glimmer-text { 
+  position: relative; 
+  overflow: hidden; 
+}
+
+.glimmer-text::after {
+  content: 'Twenty One'; 
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%;
+  background: radial-gradient(circle at center, #fff 0%, transparent 70%), 
+              linear-gradient(-45deg, transparent 40%, rgba(253, 211, 161, 0.8) 50%, transparent 60%);
+  background-size: 200px 200px, 400% 400%; 
+  -webkit-background-clip: text; 
+  -webkit-text-fill-color: transparent;
+  animation: glitter 15s infinite linear; 
+  pointer-events: none; 
+  filter: blur(1px); 
+  z-index: 5;
+}
+
+@keyframes glitter {
+  0% { background-position: -200px -200px, 0% 50%; opacity: 0.2; }
+  25% { opacity: 0.8; }
+  50% { background-position: 200px 200px, 100% 50%; opacity: 0.2; }
+  75% { opacity: 0.8; }
+  100% { background-position: -200px -200px, 0% 50%; opacity: 0.2; }
+}
+
+.swipe-hint {
+  position: absolute; 
+  bottom: 85px; 
+  width: 100%; 
+  text-align: center;
+  color: #fbd3a1; 
+  font-size: 1rem; 
+  letter-spacing: 4px; 
+  animation: pulse-right 2s infinite; 
+  opacity: 0.8; 
+}
+
+@keyframes pulse-right { 
+  0%, 100% { transform: translateX(0); } 
+  50% { transform: translateX(15px); } 
+}
+
+/* --- EDITORIAL LAYOUT COMPONENTS --- */
+.editorial-container {
+  position: relative; 
+  width: 95%; 
+  max-width: 1400px; 
+  height: 80vh; 
+  display: flex; 
+  align-items: center;
+}
+
+.editorial-chapter {
+  position: absolute; 
+  font-family: 'Quicksand', sans-serif; 
+  font-size: 1.5rem; 
+  letter-spacing: 15px; 
+  text-transform: uppercase; 
+  color: rgba(253, 211, 161, 0.9); 
+  z-index: 1; 
+  white-space: nowrap;
+  animation: gentleSparkle 4s ease-in-out infinite alternate;
+}
+
+@keyframes gentleSparkle {
+  0% { text-shadow: 0 0 5px rgba(253, 211, 161, 0.3); opacity: 0.7; }
+  100% { text-shadow: 0 0 20px rgba(253, 211, 161, 1), 0 0 35px #ffdae0; opacity: 1; }
+}
+
+.editorial-img-wrapper {
+  position: absolute; 
+  z-index: 2; 
+  box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+  clip-path: inset(100% 0 0 0); 
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease, clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.slide.in-view .editorial-img-wrapper { 
+  clip-path: inset(0 0 0 0); 
+  animation: editorialZoom 30s infinite ease-in-out alternate; 
+}
+
+.editorial-img-wrapper:hover {
+  transform: rotateY(-5deg) rotateX(2deg) scale(1.02);
+  box-shadow: 0 40px 80px rgba(253, 211, 161, 0.1), 0 0 30px rgba(253, 211, 161, 0.05);
+}
+
+.editorial-img-wrapper img { 
+  width: 420px; 
+  height: 580px; 
+  object-fit: cover; 
+  filter: grayscale(10%) contrast(110%); 
+  transition: filter 0.5s ease; 
+  border-radius: 8px; 
+}
+
+.editorial-img-wrapper:hover img { 
+  filter: grayscale(0%) contrast(100%); 
+}
+
+.editorial-text {
+  position: absolute; 
+  z-index: 3; 
+  width: 85%; 
+  max-width: 480px; 
+  font-size: 1.15rem; 
+  line-height: 1.7;   
+  color: #eaeaea;
+  border-left: 2px solid #fbd3a1; 
+  padding: 10px 0 10px 30px; 
+  background: transparent;
+  opacity: 0; 
+  transform: translateY(40px); 
+  transition: all 1s ease 0.6s;
+}
+
+.slide.in-view .editorial-text { 
+  opacity: 1; 
+  transform: translateY(0); 
+}
+
+@keyframes editorialZoom { 
+  0% { transform: scale(1); } 
+  100% { transform: scale(1.05); } 
+}
+
+/* --- EDITORIAL LAYOUT VARIATIONS --- */
+
+/* Layout 1: Left Image, Right Text */
+.layout-1 .editorial-img-wrapper { left: 12%; top: 10%; }
+.layout-1 .editorial-text { left: 50%; top: 18%; }
+.layout-1 .editorial-chapter { 
+  left: 5%; 
+  top: auto; 
+  bottom: 15%; 
+  transform: rotate(-90deg); 
+  transform-origin: bottom left; 
+}
+
+/* Layout 2: Right Image, Left Text */
+.layout-2 .editorial-img-wrapper { right: 12%; top: 10%; }
+.layout-2 .editorial-text { right: 50%; top: 25%; }
+.layout-2 .editorial-chapter { 
+  right: 5%; 
+  top: 92%; 
+  bottom: auto;
+  transform: rotate(90deg); 
+  transform-origin: top right; 
+}
+
+/* Layout 3: Cinematic Landscape */
+.layout-3 .editorial-img-wrapper { left: 6%; top: 25%; } 
+.layout-3 .editorial-img-wrapper img { width: 620px; height: 420px; } 
+.layout-3 .editorial-text { 
+  left: 56%; 
+  right: auto;
+  top: 35%; 
+  max-width: 480px; 
+  border-left: none; 
+  border-right: 2px solid #fbd3a1; 
+  text-align: right; 
+  padding: 10px 30px 10px 0; 
+}
+.layout-3 .editorial-chapter { top: 12%; left: 6%; }
+
+/* --- FINALE SLIDE --- */
+.finale-content { 
+  text-align: center; 
+  z-index: 5; 
+  opacity: 0; 
+  transform: scale(0.9); 
+  transition: all 1.5s ease 0.5s; 
+  width: 90%; 
+  max-width: 800px; 
+}
+
+.slide.in-view .finale-content { 
+  opacity: 1; 
+  transform: scale(1); 
+}
+
+.finale-title {
+  font-family: 'Quicksand', sans-serif; 
+  font-size: 4rem; 
+  font-weight: 300; 
+  text-transform: uppercase; 
+  letter-spacing: 15px; 
+  background: linear-gradient(to right, #fbd3a1, #fff, #fbd3a1); 
+  background-size: 200% auto;
+  -webkit-background-clip: text; 
+  -webkit-text-fill-color: transparent; 
+  animation: shineTitle 4s linear infinite; 
+  margin-bottom: 60px;
+}
+
+@keyframes shineTitle { 
+  to { background-position: 200% center; } 
+}
+
+.finale-message {
+  font-family: 'Quicksand', sans-serif; 
+  font-size: 1.15rem; 
+  line-height: 1.8; 
+  color: #eaeaea; 
+  margin: 0 auto 30px; 
+  max-width: 800px;
+  padding: 0 20px;
+}
+
+.finale-signature {
+  font-family: 'Great Vibes', cursive; 
+  font-size: 4rem; 
+  color: #fbd3a1; 
+  margin-top: 20px;
+}
+
+/* --- STARDUST FIELD PARTICLES --- */
+.sparkle-particles { 
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  width: 100vw; 
+  height: 100vh; 
+  z-index: -1; 
+  pointer-events: none; 
+  overflow: hidden; 
+}
+
+.particle { 
+  position: absolute; 
+  bottom: -10px; 
+  border-radius: 50%; 
+  opacity: 0; 
+  animation: rise linear infinite; 
+  filter: blur(1px); 
+}
+
+@keyframes rise { 
+  0% { transform: translateY(0) scale(0.6); opacity: 0; } 
+  20% { opacity: 0.8; } 
+  80% { opacity: 0.6; } 
+  100% { transform: translateY(-110vh) scale(1.4); opacity: 0; } 
+}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unlock Memory Capsule</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="favicons/fav1.png" type="image/png" />
+</head>
+<body>
+  <div class="stars"></div>
+
+  <div class="gallery-container">
+    
+    <div class="header">
+      <h1>Unlock Memories</h1>
+      <p>Enter our special keys to view the letters.</p>
+    </div>
+
+    <form id="loginForm" class="login-form">
+      <input type="text" id="username" class="login-input" placeholder="Enter username" required />
+      <input type="password" id="password" class="login-input" placeholder="The secret word" required />
+      
+      <div id="errorText" class="error-msg">Incorrect password, please try again.</div>
+      
+      <button type="submit" class="login-btn">Unlock Capsule ➜</button>
+      <button type="button" id="guestBtn" class="guest-btn">View as Guest</button>
+    </form>
+    
+  </div>
+
+  <footer>
+    <p>Lovingly crafted by <a href="#" id="name-link">Geryme</a></p>
+  </footer>
+
+  <script>
+    const form = document.getElementById('loginForm');
+    const errorText = document.getElementById('errorText');
+    const guestBtn = document.getElementById('guestBtn');
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const user = document.getElementById('username').value;
+      const pass = document.getElementById('password').value;
+      
+      const BACKEND_URL = 'https://project-chrono-backend.vercel.app/api/login';
+
+      try {
+        const response = await fetch(BACKEND_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ username: user, password: pass })
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          // Store auth token and redirect on success
+          localStorage.setItem('memoryCapsuleToken', data.token);
+          window.location.href = 'index.html'; 
+        } else {
+          // Trigger catch block on failed auth
+          throw new Error('Unauthorized');
+        }
+      } catch (error) {
+        // Display error state and animate form
+        errorText.style.display = 'block';
+        
+        form.style.transform = 'translateX(5px)';
+        setTimeout(() => form.style.transform = 'translateX(-5px)', 50);
+        setTimeout(() => form.style.transform = 'translateX(5px)', 100);
+        setTimeout(() => form.style.transform = 'translateX(0)', 150);
+      }
+    });
+
+    guestBtn.addEventListener('click', function() {
+      // Clear any existing token to ensure guest state, then redirect
+      localStorage.removeItem('memoryCapsuleToken');
+      window.location.href = 'index.html';
+    });
+  </script>
+</body>
+</html>

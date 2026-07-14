@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Memory Capsule</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="favicons/fav1.png" type="image/png" />
+</head>
+<body>
+  <div class="stars"></div>
+
+  <div class="gallery-container">
+    
+    <div class="header">
+      <h1>Our Time Capsule</h1>
+      <p>A collection of our precious moments.</p>
+    </div>
+
+    <div class="memory-list">
+
+      <a href="letterpg4.html" class="memory-card latest">
+        <div class="card-content">
+          <div class="card-title">
+            <span>🥂 21st Birthday</span>
+            <span class="badge">LATEST</span>
+          </div>
+          <div class="card-desc">Cheers to 21! Celebrating another year of your radiant light.</div>
+        </div>
+        <div class="card-arrow">➜</div>
+      </a>
+
+       <a href="letterpg3.html" class="memory-card">
+        <div class="card-content">
+          <div class="card-title">
+            <span>💞 2nd Anniversary</span>
+          </div>
+          <div class="card-desc">Two beautiful years of creating memories with my favorite star.</div>
+        </div>
+        <div class="card-arrow">➜</div>
+      </a>
+
+      <a href="letterpg2.html" class="memory-card">
+        <div class="card-content">
+          <div class="card-title">
+            <span>❤️ Valentine's Day 2026</span>
+          </div>
+          <div class="card-desc">To my brightest star, a love letter.</div>
+        </div>
+        <div class="card-arrow">➜</div>
+      </a>
+
+      <a href="letter.html" class="memory-card">
+        <div class="card-content">
+          <div class="card-title">
+            <span>🎂 20th Birthday</span>
+          </div>
+          <div class="card-desc">The day my star became even brighter.</div>
+        </div>
+        <div class="card-arrow">➜</div>
+      </a>
+
+    </div>
+    
+    <div class="footer-note">
+      More memories to come...
+    </div>
+  </div>
+
+<button id="logoutBtn" class="logout-btn">Loading...</button>
+
+<script>
+    // Wait for the page to fully load
+    document.addEventListener('DOMContentLoaded', () => {
+    const authBtn = document.getElementById('logoutBtn');
+    const token = localStorage.getItem('memoryCapsuleToken');
+
+    // Set text based on status
+    if (token) {
+      authBtn.textContent = 'Log Out';
+    } else {
+      authBtn.textContent = 'Go back to Log-in';
+    }
+
+    // Handle click
+    authBtn.addEventListener('click', () => {
+      if (token) {
+        localStorage.removeItem('memoryCapsuleToken');
+      }
+      window.location.href = 'login.html';
+    });
+  });
+</script>
+
+  <footer>
+    <p>Lovingly crafted by <a href="#" id="name-link">Geryme</a></p>
+  </footer>
+
+</body>
+</html>

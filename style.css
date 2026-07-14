@@ -1,0 +1,289 @@
+@import url("https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap");
+
+body {
+  height: 100vh;
+  width: 100vw;
+  background: #1a1a2e; /* Darker space blue */
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  font-family: 'Quicksand', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* --- STARRY BACKGROUND --- */
+.stars, .stars::before, .stars::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: 
+    radial-gradient(white 2px, transparent 2px),
+    radial-gradient(white 1.5px, transparent 1.5px);
+  z-index: -1;
+}
+
+.stars {
+  background-size: 80px 80px, 130px 130px;
+  animation: moveStars 200s linear infinite, twinkle 4s ease-in-out infinite alternate;
+  opacity: 0.8;
+}
+
+.stars::before {
+  background-size: 100px 100px, 140px 140px;
+  animation: moveStarsBefore 300s linear infinite reverse, twinkle 6s ease-in-out infinite alternate;
+  opacity: 0.5;
+}
+
+@keyframes moveStars { from { background-position: 0 0; } to { background-position: 500px 500px; } }
+@keyframes moveStarsBefore { from { background-position: 0 0; } to { background-position: 550px 550px; } }
+@keyframes twinkle { 0% { opacity: 0.3; } 100% { opacity: 1; } }
+
+
+/* --- GALLERY CONTAINER --- */
+.gallery-container {
+  width: 500px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-align: center;
+  animation: floatUp 1s ease-out;
+}
+
+@keyframes floatUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.header h1 {
+  font-family: 'Great Vibes', cursive;
+  color: #fff;
+  font-size: 3.5rem;
+  margin: 0 0 10px 0;
+  text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.header p {
+  color: #ccc;
+  font-family: 'Indie Flower', cursive;
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+/* --- MEMORY LIST --- */
+.memory-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* --- MEMORY CARD --- */
+.memory-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 20px 25px;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.memory-card:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateX(5px);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Text Styling */
+.card-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.card-desc {
+  color: #aaa;
+  font-size: 0.9rem;
+  margin-top: 5px;
+  text-align: left;
+}
+
+.card-arrow {
+  color: #fff;
+  font-size: 1.2rem;
+  opacity: 0.5;
+  transition: opacity 0.3s;
+}
+
+.memory-card:hover .card-arrow {
+  opacity: 1;
+}
+
+/* --- LATEST BADGE STYLE --- */
+.latest {
+  background: linear-gradient(135deg, rgba(184, 92, 110, 0.3), rgba(62, 39, 35, 0.3));
+  border: 1px solid rgba(184, 92, 110, 0.5);
+}
+
+.badge {
+  background: #ff4757;
+  color: white;
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 5px rgba(255, 71, 87, 0.4);
+  animation: pulseBadge 2s infinite;
+}
+
+@keyframes pulseBadge {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* --- FOOTER NOTES --- */
+.footer-note {
+  margin-top: 30px;
+  color: #666;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+/* --- MAIN FOOTER (Your Name) --- */
+footer {
+  position: fixed;
+  bottom: 15px;
+  left: 0; width: 100%;
+  text-align: center;
+  /* Light color to match space theme */
+  color: #a8a8b3; 
+  font-size: 14px;
+  z-index: 100;
+  pointer-events: none; /* Allows clicking through if needed */
+}
+
+footer p {
+  font-family: 'Indie Flower', cursive;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+footer a {
+  color: #ff4757; /* Matches the badge color for consistency */
+  text-decoration: none;
+  font-weight: bold;
+  pointer-events: auto; /* Re-enable clicking on your name link */
+}
+
+/* --- LOGIN FORM --- */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 10px;
+}
+
+.login-input {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 15px 20px;
+  border-radius: 12px;
+  color: #fff;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.login-input::placeholder {
+  color: #aaa;
+}
+
+.login-input:focus {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #ff4757; /* Matches your badge color */
+  box-shadow: 0 0 10px rgba(255, 71, 87, 0.3);
+}
+
+.login-btn {
+  background: linear-gradient(135deg, rgba(184, 92, 110, 0.8), rgba(62, 39, 35, 0.8));
+  border: 1px solid rgba(184, 92, 110, 0.5);
+  color: white;
+  padding: 15px;
+  border-radius: 12px;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 1px;
+}
+
+.login-btn:hover {
+  background: linear-gradient(135deg, rgba(184, 92, 110, 1), rgba(62, 39, 35, 1));
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.error-msg {
+  color: #ff4757;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-top: -10px;
+  display: none; /* Hidden by default */
+}
+
+.guest-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #aaa;
+  padding: 12px;
+  border-radius: 12px;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: -10px; /* Pulls it slightly closer to the main button */
+}
+
+.guest-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* --- LOGOUT BUTTON --- */
+.logout-btn {
+    position: fixed; /* Or absolute, depending on your layout */
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    color: #fecfef;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
