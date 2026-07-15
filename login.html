@@ -10,6 +10,18 @@
   <link rel="icon" href="favicons/fav1.png" type="image/png" />
 </head>
 <body>
+  <div id="screen-warning-overlay" class="screen-warning-overlay">
+    <div class="screen-warning-box">
+      <h3 class="warning-title">Desktop Recommended</h3>
+      <p class="warning-message">
+        For the best experience, please view this memory capsule on a desktop screen (1080p or higher).
+        <br><br>
+        Viewing on phones, tablets, or smaller windows will result in a broken layout. I will be adding mobile responsiveness in a future update!
+      </p>
+      <button id="close-warning-btn" class="close-warning-btn">I Understand</button>
+    </div>
+  </div>
+
   <div class="stars"></div>
 
   <div class="gallery-container">
@@ -82,6 +94,24 @@
       // Clear any existing token to ensure guest state, then redirect
       localStorage.removeItem('memoryCapsuleToken');
       window.location.href = 'index.html';
+    });
+
+    // --- SCREEN WARNING LOGIC ---
+    document.addEventListener('DOMContentLoaded', () => {
+      const warningOverlay = document.getElementById('screen-warning-overlay');
+      const closeBtn = document.getElementById('close-warning-btn');
+
+      if (!sessionStorage.getItem('screenWarningDismissed')) {
+        setTimeout(() => {
+          warningOverlay.classList.add('show');
+        }, 800); 
+      }
+
+      closeBtn.addEventListener('click', () => {
+        warningOverlay.classList.remove('show');
+        
+        sessionStorage.setItem('screenWarningDismissed', 'true');
+      });
     });
   </script>
 </body>
